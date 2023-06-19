@@ -1,5 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
 
 data = pd.read_csv('CalMod_06222009.csv')
 data = data.dropna()
@@ -14,3 +16,10 @@ print(labels)
 # split data into training and test set
 X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.3, random_state=18)
 print(X_test)
+
+# train and evaluate model using Random forest classifier and make predictions
+clf = RandomForestClassifier()
+clf = clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+
+print('Accuracy on test data is %.4f' % (accuracy_score(y_test, y_pred)))
